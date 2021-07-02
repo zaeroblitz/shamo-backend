@@ -118,4 +118,22 @@ class UserController extends Controller
             );
         }
     }
+
+    public function logout(Request $request) 
+    {
+        try {
+            $token = $request->user()->currentAccessToken()->delete();
+
+            return ResponseFormatter::success($token, 'Token Revoked');
+        } catch (Exception $error) {
+            return ResponseFormatter::error(
+                null,
+                [
+                    'message' => 'Something went wrong',
+                    'error' => $error
+                ],
+                500
+            );
+        }
+    }
 }
