@@ -107,7 +107,13 @@ class UserController extends Controller
             ]);
 
             $user = Auth::user();
-            $user->update($data);
+            $user->update([
+                'name' => $data['name'],
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'phone_number' => $data['phone_number'],
+                'password' => Hash::make($data['password'])
+            ]);
 
             return ResponseFormatter::success($user, 'Profile Updated');
         } catch (Exception $error) {
