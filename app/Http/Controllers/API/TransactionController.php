@@ -14,7 +14,7 @@ class TransactionController extends Controller
     public function all(Request $request)
     {
         $id = $request->input('id');
-        $limit = $request->input('limit');
+        $limit = $request->input('limit', 6);
         $status = $request->input('status');
 
         if ($id) {
@@ -29,7 +29,7 @@ class TransactionController extends Controller
                 return ResponseFormatter::error(
                     null,
                     'Data transaksi tidak ada',
-                    500
+                    404
                 );
             }
         }
@@ -72,11 +72,11 @@ class TransactionController extends Controller
                 'transactions_id' => $transaction->id,
                 'quantity' => $product['quantity'],
             ]);
-
-            return ResponseFormatter::success(
-                $transaction->load('items.product'),
-                'Transaksi berhasil'
-            );
         }
+
+        return ResponseFormatter::success(
+            $transaction->load('items.product'),
+            'Transaksi berhasil'
+        );
     }
 }

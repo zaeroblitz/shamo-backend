@@ -15,7 +15,7 @@ class Transaction extends Model
         'address',
         'payment',
         'total_price',
-        'shipment_price',
+        'shipping_price',
         'status'
     ];
 
@@ -26,6 +26,6 @@ class Transaction extends Model
 
     public function items()
     {
-        return $this->hasMany(TrasactionItem::class, 'transactions_id', 'id');
+        return $this->hasMany(TransactionItem::class, 'transactions_id', 'id');
     }
 }
